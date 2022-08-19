@@ -18,7 +18,7 @@ export default defineEventHandler((event) => {
       ? query.tag
       : [query.tag]
     : [];
-
+  console.log(tags);
   return uploadNotionMessage(
     (query.message || "") as string,
     tags as string[],
