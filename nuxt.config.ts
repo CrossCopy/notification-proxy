@@ -26,4 +26,5 @@ export default defineNuxtConfig({
       appName: process.env.appName || "Notify Me",
     },
   },
+  routes: { "/": { prerender: true }, "/*": { cors: true } },
 });
