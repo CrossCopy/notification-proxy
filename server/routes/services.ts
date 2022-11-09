@@ -1,4 +1,4 @@
-export default defineEventHandler(() => {
+export default defineEventHandler((event) => {
   const config = useRuntimeConfig();
   return {
     telegram: Boolean(config.telegramBotToken && config.telegramChatId),

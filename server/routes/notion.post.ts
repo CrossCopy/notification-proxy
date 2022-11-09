@@ -9,19 +9,19 @@ export default defineEventHandler((event) => {
   const config = useRuntimeConfig();
   if (!config.notionSecret || !config.notionDatabaseId)
     throw new Error("Notion not Enabled");
-
-  return useBody(event)
-    .then((body) => {
-      return uploadNotionMessage(
-        body.message || "",
-        (body.tags || []) as string[],
-        body.name || "",
-        body.email || "",
-        config.notionDatabaseId,
-        config.notionSecret
-      );
-    })
-    .then((res) => {
-      return { ok: true };
-    });
+  const ip = JSON.stringify(
+    event.req.headers["x-forwarded-for"] || event.req.socket.remoteAddress
+  );
+  const body = event.context.body;
+  return uploadNotionMessage(
+    body.message || "",
+    (body.tags || []) as string[],
+    body.name || "",
+    body.email || "",
+    config.notionDatabaseId,
+    config.notionSecret,
+    ip
+  ).then((res) => {
+    return { ok: true };
+  });
 });

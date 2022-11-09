@@ -15,11 +15,14 @@ export default defineEventHandler((event) => {
     !config.emailDefaultToAddress
   )
     throw new Error("Email not Enabled");
-  const query = useQuery(event);
+  const query = event.context.query;
   let message = query.message as string;
   message += `\n\nName: ${query.name}`;
   message += `\nemail: ${query.email}`;
-
+  const ip = JSON.stringify(
+    event.req.headers["x-forwarded-for"] || event.req.socket.remoteAddress
+  );
+  message += `\nIP: ${ip}`;
   return sendEmail(
     config.emailHost,
     config.emailPort,
