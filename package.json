@@ -1,5 +1,10 @@
 {
+  "name": "crosscopy-notification-proxy",
+  "version": "0.1.0",
+  "description": "Web server for logging message to notion database and sending email + telegram msg",
   "private": true,
+  "keywords": [],
+  "author": "Huakun Shen",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
